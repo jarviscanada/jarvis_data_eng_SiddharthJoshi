@@ -35,7 +35,8 @@ case $command in
     docker volume create pgdata
 
     # Starting the container once it is created.
-    docker run --name jrvs-psql -e POSTGRES_PASSWORD="$database_password" -d -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres:9.6-alpine
+    docker run --name jrvs-psql -e POSTGRES_PASSWORD="$database_password" \
+      -e POSTGRES_USER="$database_username" -d -v pgdata:/var/lib/postgresql/data -p 5432:5432 postgres:9.6-alpine
 
     # Exiting with the status of the last executed command.
     exit $?
