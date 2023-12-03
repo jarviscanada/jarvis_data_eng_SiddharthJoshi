@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# This function parses the JSON data and extracts out appropriate values.
+function filter_json() {
+
+  typeset company_data=$1
+
+  # Extracting the values from the JSON file.
+  company_symbol=$(echo "$company_data" | jq -r '."01. symbol"')
+  open=$(echo "$company_data" | jq '."02. open" | tonumber')
+  high=$(echo "$company_data" | jq '."03. high" | tonumber')
+  low=$(echo "$company_data" | jq '."04. low" | tonumber')
+  price=$(echo "$company_data" | jq '."05. price" | tonumber')
+  volume=$(echo "$company_data" | jq '."06. volume" | tonumber')
+
+  # Calling the function to insert data inside the database.
+  insert_data "$company_symbol" "$open" "$high" "$low" "$price" "$volume"
+}
+
 # This function generates insertion query and inserts the data inside the database.
 function insert_data() {
 
@@ -57,15 +74,7 @@ do
           exit 1
       fi
 
-      # Extracting the values from the JSON file.
-      company_symbol=$(echo "$company_data" | jq -r '."01. symbol"')
-      open=$(echo "$company_data" | jq '."02. open" | tonumber')
-      high=$(echo "$company_data" | jq '."03. high" | tonumber')
-      low=$(echo "$company_data" | jq '."04. low" | tonumber')
-      price=$(echo "$company_data" | jq '."05. price" | tonumber')
-      volume=$(echo "$company_data" | jq '."06. volume" | tonumber')
-
-      insert_data "$company_symbol" "$open" "$high" "$low" "$price" "$volume"
+      filter_json "$company_data"
   fi
   ((counter+=1))
 done
