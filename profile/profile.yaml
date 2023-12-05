@@ -1,0 +1,118 @@
+# Preferred name (Characters only)
+name: "Siddharth Joshi"
+# Your GitHub repo root URL
+github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_SiddharthJoshi
+
+# Introduce yourself, your academic and professional background.
+# What excites you about the software industry and your passion. At least 80 words
+summary: Heya! I am Siddharth Joshi. I am a Software Engineer with Bachelors of Technology in Computer Engineering. I have a passion for software engineering as I believe technology has revolutionized the entire world by coming up with meaningful solutions and delivering values. Breaking down problems is something I enjoy. This is the exact thing which motivates me and exictes me is that I get to craft solutions to real world problems collaborating with other like-minded individuals towards the same goal. I have worked with wide array of technologies from Java and Spring Boot to Python and Django along with Data Engineering. I am confident I can bring values along with my technical acumen to your organization.
+
+
+# Group your skills by level.
+# Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.).
+skills:
+  # At least 5 skills
+  proficient:
+    - Java
+    - Linux/Bash
+    - RDBMS/SQL
+    - Agile/Scrum
+    - Git
+    - Python
+  # At least 5 skills
+  competent:
+    - JavaScript
+    - C/C++
+    - Django
+    - Flask
+    - Godot Game Engine
+  # At least 5 skills
+  familiar:
+    - C#
+    - .NET Framework
+    - Amazon Web Services
+    - NoSQL
+    - Docker
+
+# List of Jarvis projects
+jarvis_projects:
+  - name: "Cluster Monitor"
+    git_url: "/linux_sql"
+    # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: A Monitoring Agent intended for the Jarvis Linux Cluster Administrator Team (LCA). This project gathers the real-time data from all the available machines such as hardware specifications (CPU, Memory, etc.). This data is persisted in a relational database providing accurate records of data at a particular timestamp. This data will be used by the LCA team to manage resources. This project can be deployed across multiple host machines to enable real time data gathering. The technologies used for this project are Postgres Database, Docker, Git, GitHub and Linux.
+  - name: "Core Java Apps"
+    git_url: "/core_java"
+    description:
+      - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+  - name: "Springboot App"
+    git_url: "/springboot"
+    description: ""
+  - name: "Python Data Analytics"
+    git_url: "/python_data_anlytics"
+    description: ""
+  - name: "Hadoop"
+    git_url: "/hadoop"
+    description: ""
+  - name: "Spark"
+    git_url: "/spark"
+    description: ""
+  - name: "Cloud/DevOps"
+    git_url: "/cloud_devops"
+    description: ""
+
+# List of personal or academic projects
+# Feel free to add more projects
+highlighted_projects:
+    #project name
+  - name: "Cheap Flight Finder"
+    #URL is optional
+    git_url: "https://github.com/Clandoor/CheapFlightFinder"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: This Project Prototype is designed for people who want real time updates of price drop in flight tickets. This Project sends real time alerts via email whenever flights prices are low.
+
+    #project name
+  - name: "Blood Bank Data Management System"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: A full stack application for the university hospital utilizing HTML, CSS, Bootstrap, JavaScript, MySQL and PHP. Enhanced the older donor management system of the hospital by equipping the blood donation department with the latest cutting-edge technologies.
+
+#List of professional experience
+#The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
+#The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem-solving, improvements, communication).
+professional_experience:
+  #Write your Jarvis role as a professional experience rather than training.
+  - title: "Software Engineer"
+    company: "Jarvis"
+    duration: "Nov 2023 - Present"
+    # The project description must start with an action verb (https://bit.ly/3guO98u)
+    description: "Leveraged multiple cutting-edge technologies to build multiple projects spanning in various fields of software."
+  - title: "Software Engineer"
+    company: "ABXR Engine"
+    duration: "Aug 2023 - Dec 2023"
+    description: "Designed and Implemented RESTful APIs for AI-based text-to-voice generation, enabling the users to choose from a variety of celebrity voices resulting in enhanced user experience and engagement."
+
+#List of edcuation
+education: 
+  - school_name: "Charotar University of Science and Technology"
+    duration: "2018-2022"
+    degree: "Bachelor of Technology"
+    department: "U & P U Patel Department of Computer Engineering"
+    # optional
+    awards_achievements:
+      - "GPA: 3.5/4.0"
+
+#Optional section
+others:
+    #category
+  - title: "Certificates"
+    #list of items
+    bullets:
+      - "Getting Started with Cloud for the Enterprise"
+      - "Getting Started with Enterprise Data Science"
+  - title: "Activities/Hobbies"
+    bullets:
+      - "Swimming"
+      - "Hiking"
+      - "Volunteer, Charusat University: Volunteered for providing basic necessities to people in rural areas."
