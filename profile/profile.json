@@ -1,0 +1,118 @@
+{
+  "education": [
+    {
+      "awards_achievements": [
+        "GPA: 3.5/4.0"
+      ],
+      "degree": "Bachelor of Technology",
+      "department": "U \u0026 P U Patel Department of Computer Engineering",
+      "duration": "2018-2022",
+      "school_name": "Charotar University of Science and Technology"
+    }
+  ],
+  "github_repo_root_url": "https://github.com/jarviscanada/jarvis_data_eng_SiddharthJoshi",
+  "highlighted_projects": [
+    {
+      "description": "This Project is a prototype designed for people who want real time updates of price drop in flight tickets. This Project is implemented in Python and its associated libraries. This Project runs on command line and sends real time alerts via email whenever flights prices are low. It is really handy for me as I can get updates on price drops / low prices instead of checking everytime. Further enhancements in this project are yet to be made.",
+      "git_url": "https://github.com/Clandoor/CheapFlightFinder",
+      "name": "Cheap Flight Finder"
+    },
+    {
+      "description": "Developed and managed a highly efficient full-stack application for the university hospital, utilizing HTML, CSS, Bootstrap, MySQL, JavaScript, and PHP. The old legacy system of the blood donation department reeked of bugs and errors along with inconsistencies. This project enhanced the older system serving as a replacement with refined UI, robust database and smooth navigation. As a result, blood donation department operated more smoothly than before thus enhancing patient care and quality service to the patients.",
+      "name": "Blood Bank Data Management System"
+    }
+  ],
+  "jarvis_projects": [
+    {
+      "description": "A Monitoring Agent intended for the Jarvis Linux Cluster Administrator Team (LCA). This project gathers the real-time data from all the available machines such as hardware specifications (CPU, Memory, etc.). This data is persisted in a relational database providing accurate records of data at a particular timestamp. This data will be used by the LCA team to manage resources. This project can be deployed across multiple host machines to enable real time data gathering. The technologies used for this project are Postgres Database, Docker, Git, GitHub and Linux.",
+      "git_url": "/linux_sql",
+      "name": "Cluster Monitor"
+    },
+    {
+      "description": [
+        "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.",
+        "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam.",
+        "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
+      ],
+      "git_url": "/core_java",
+      "name": "Core Java Apps"
+    },
+    {
+      "description": "",
+      "git_url": "/springboot",
+      "name": "Springboot App"
+    },
+    {
+      "description": "",
+      "git_url": "/python_data_anlytics",
+      "name": "Python Data Analytics"
+    },
+    {
+      "description": "",
+      "git_url": "/hadoop",
+      "name": "Hadoop"
+    },
+    {
+      "description": "",
+      "git_url": "/spark",
+      "name": "Spark"
+    },
+    {
+      "description": "",
+      "git_url": "/cloud_devops",
+      "name": "Cloud/DevOps"
+    }
+  ],
+  "name": "Siddharth Joshi",
+  "others": [
+    {
+      "bullets": [
+        "Sports: I love playing team sports such as basketball, cricket, tennis, table tennis, volleyball. I'm also into swimming, marathons, yoga, etc.",
+        "Hiking: Hiking and camping makes me feel connected with nature which I truly enjoy and appreciate.",
+        "Volunteering: Contributing to society always motivates me. One time from my university, I was volunteering for providing basic necessities to people in rural areas.",
+        "Reading: Reading novels and books gives me peace. I truly enjoy exploring different genres such as Magical Realism, etc.",
+        "Travelling: Perhaps one of the best things, I love to travel and explore the world, getting to know different people and their cultures along with exploring the unknown."
+      ],
+      "title": "Activities/Hobbies"
+    }
+  ],
+  "professional_experience": [
+    {
+      "company": "Jarvis",
+      "description": "Leveraged multiple cutting-edge technologies to build multiple projects spanning in various fields of software.",
+      "duration": "Nov 2023 - Present",
+      "title": "Software Engineer"
+    },
+    {
+      "company": "ABXR Engine",
+      "description": "In ABXR Engine no-code platform, people can create AR content which they can play once published within minutes leveraging wide array of in-built tools. One of them being adding AI generated voice to the characters and scenes. I was working on designing and implementing RESTful APIs which would generate AI-based text-to-voice enabling the users to generate and play a variety of different voices including famous celebrity voices. To store the voices so they are saved with the content, AWS S3 bucket was leveraged along with Python which would store the voices on cloud from the backend.",
+      "duration": "Aug 2023 - Dec 2023",
+      "title": "Software Engineer"
+    }
+  ],
+  "skills": {
+    "competent": [
+      "Django",
+      "C/C++",
+      "JavaScript",
+      "Flask",
+      "Godot Game Engine"
+    ],
+    "familiar": [
+      "C#",
+      ".NET Framework",
+      "Amazon Web Services",
+      "NoSQL",
+      "Docker"
+    ],
+    "proficient": [
+      "Java",
+      "Python",
+      "Linux/Bash",
+      "RDBMS/SQL",
+      "Agile/Scrum",
+      "Git"
+    ]
+  },
+  "summary": "Heya! Myself Siddharth Joshi. I am a Software Engineer with Bachelor of Technology in Computer Engineering from Charusat University. Being exposed with multiple technologies during my studies, I came to know its potential. I started experimenting and playing around with tech by building small projects such as 2D survival game in Godot Game Engine. After that, I participated in a project involving the replacement of the software in hospital's blood donation department. From time to time, I saw how the technology can be used to deliver values. This is where my true passion for Software Engineering was ignited. I have worked with wide array of technologies such as Java, Python, Django and relational databases. I have experience working in a team environment which I first gained by working at ABXR Engine, a startup dominating the AR industry where I worked on Python and Django. I am confident I can deliver values to your organization along with my technical acumen."
+}
