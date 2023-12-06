@@ -5,7 +5,7 @@ github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_SiddharthJ
 
 # Introduce yourself, your academic and professional background.
 # What excites you about the software industry and your passion. At least 80 words
-summary: Heya! I am Siddharth Joshi. I am a Software Engineer with Bachelors of Technology in Computer Engineering. I have a passion for software engineering as I believe technology has revolutionized the entire world by coming up with meaningful solutions and delivering values. Breaking down problems is something I enjoy. This is the exact thing which motivates me and exictes me is that I get to craft solutions to real world problems collaborating with other like-minded individuals towards the same goal. I have worked with wide array of technologies from Java and Spring Boot to Python and Django along with Data Engineering. I am confident I can bring values along with my technical acumen to your organization.
+summary: "Heya! Myself Siddharth Joshi. I am a Software Engineer with Bachelor of Technology in Computer Engineering from Charusat University. Being exposed with multiple technologies during my studies, I came to know its potential. I started experimenting and playing around with tech by building small projects such as 2D survival game in Godot Game Engine. After that, I participated in a project involving the replacement of the software in hospital's blood donation department. From time to time, I saw how the technology can be used to deliver values. This is where my true passion for Software Engineering was ignited. I have worked with wide array of technologies such as Java, Python, Django and relational databases. I have experience working in a team environment which I first gained by working at ABXR Engine, a startup dominating the AR industry where I worked on Python and Django. I am confident I can deliver values to your organization along with my technical acumen."
 
 
 # Group your skills by level.
@@ -14,16 +14,16 @@ skills:
   # At least 5 skills
   proficient:
     - Java
+    - Python
     - Linux/Bash
     - RDBMS/SQL
     - Agile/Scrum
     - Git
-    - Python
   # At least 5 skills
   competent:
-    - JavaScript
-    - C/C++
     - Django
+    - C/C++
+    - JavaScript
     - Flask
     - Godot Game Engine
   # At least 5 skills
@@ -71,12 +71,12 @@ highlighted_projects:
     #URL is optional
     git_url: "https://github.com/Clandoor/CheapFlightFinder"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: This Project Prototype is designed for people who want real time updates of price drop in flight tickets. This Project sends real time alerts via email whenever flights prices are low.
+    description: "This Project is a prototype designed for people who want real time updates of price drop in flight tickets. This Project is implemented in Python and its associated libraries. This Project runs on command line and sends real time alerts via email whenever flights prices are low. It is really handy for me as I can get updates on price drops / low prices instead of checking everytime. Further enhancements in this project are yet to be made."
 
     #project name
   - name: "Blood Bank Data Management System"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: A full stack application for the university hospital utilizing HTML, CSS, Bootstrap, JavaScript, MySQL and PHP. Enhanced the older donor management system of the hospital by equipping the blood donation department with the latest cutting-edge technologies.
+    description: "Developed and managed a highly efficient full-stack application for the university hospital, utilizing HTML, CSS, Bootstrap, MySQL, JavaScript, and PHP. The old legacy system of the blood donation department reeked of bugs and errors along with inconsistencies. This project enhanced the older system serving as a replacement with refined UI, robust database and smooth navigation. As a result, blood donation department operated more smoothly than before thus enhancing patient care and quality service to the patients."
 
 #List of professional experience
 #The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
@@ -91,9 +91,9 @@ professional_experience:
   - title: "Software Engineer"
     company: "ABXR Engine"
     duration: "Aug 2023 - Dec 2023"
-    description: "Designed and Implemented RESTful APIs for AI-based text-to-voice generation, enabling the users to choose from a variety of celebrity voices resulting in enhanced user experience and engagement."
+    description: "In ABXR Engine no-code platform, people can create AR content which they can play once published within minutes leveraging wide array of in-built tools. One of them being adding AI generated voice to the characters and scenes. I was working on designing and implementing RESTful APIs which would generate AI-based text-to-voice enabling the users to generate and play a variety of different voices including famous celebrity voices. To store the voices so they are saved with the content, AWS S3 bucket was leveraged along with Python which would store the voices on cloud from the backend."
 
-#List of edcuation
+#List of education
 education: 
   - school_name: "Charotar University of Science and Technology"
     duration: "2018-2022"
@@ -106,13 +106,11 @@ education:
 #Optional section
 others:
     #category
-  - title: "Certificates"
+  - title: "Activities/Hobbies"
     #list of items
     bullets:
-      - "Getting Started with Cloud for the Enterprise"
-      - "Getting Started with Enterprise Data Science"
-  - title: "Activities/Hobbies"
-    bullets:
-      - "Swimming"
-      - "Hiking"
-      - "Volunteer, Charusat University: Volunteered for providing basic necessities to people in rural areas."
+      - "Sports: I love playing team sports such as basketball, cricket, tennis, table tennis, volleyball. I'm also into swimming, marathons, yoga, etc."
+      - "Hiking: Hiking and camping makes me feel connected with nature which I truly enjoy and appreciate."
+      - "Volunteering: Contributing to society always motivates me. One time from my university, I was volunteering for providing basic necessities to people in rural areas."
+      - "Reading: Reading novels and books gives me peace. I truly enjoy exploring different genres such as Magical Realism, etc."
+      - "Travelling: Perhaps one of the best things, I love to travel and explore the world, getting to know different people and their cultures along with exploring the unknown."
