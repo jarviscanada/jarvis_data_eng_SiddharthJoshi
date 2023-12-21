@@ -1,27 +1,27 @@
 -- SECTION 1 - DDL (Includes Creating the tables and adding, removing and updating the data inside that table).
 -- Creating a new table members in the cd schema.
 CREATE TABLE IF NOT EXISTS cd.members (
-	memid			INTEGER NOT NULL,
-	surname			VARCHAR(200) NOT NULL,
-	firstname		VARCHAR(200) NOT NULL,
-	address			VARCHAR(300) NOT NULL,
-	zipcode 		INTEGER NOT NULL,
-	telephone 		VARCHAR(20) NOT NULL,
-	recommendedby	INTEGER,
-	joindate 		TIMESTAMP NOT NULL,
-	CONSTRAINT memid_pk PRIMARY KEY (memid),
-	CONSTRAINT fk_members_recommendedby FOREIGN KEY (recommendedby)
-		REFERENCES cd.members(memid) ON DELETE SET NULL
+    memid		INTEGER NOT NULL,
+    surname		VARCHAR(200) NOT NULL,
+    firstname		VARCHAR(200) NOT NULL,
+    address		VARCHAR(300) NOT NULL,
+    zipcode 		INTEGER NOT NULL,
+    telephone 		VARCHAR(20) NOT NULL,
+    recommendedby	INTEGER,
+    joindate 		TIMESTAMP NOT NULL,
+    CONSTRAINT memid_pk PRIMARY KEY (memid),
+    CONSTRAINT fk_members_recommendedby FOREIGN KEY (recommendedby)
+	REFERENCES cd.members(memid) ON DELETE SET NULL
 );
 
 -- Creating a new table facilities in the cd schema.
 CREATE TABLE IF NOT EXISTS cd.facilities (
-    facid				INTEGER NOT NULL,
-    name 				VARCHAR(100) NOT NULL,
+    facid			INTEGER NOT NULL,
+    name 			VARCHAR(100) NOT NULL,
     membercost			NUMERIC NOT NULL,
     guestcost			NUMERIC NOT NULL,
     initialoutlay		NUMERIC NOT NULL,
-    monthlymaintenance	NUMERIC NOT NULL,
+    monthlymaintenance		NUMERIC NOT NULL,
     CONSTRAINT facid_pk PRIMARY KEY (facid)
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS cd.bookings (
     bookid		INTEGER NOT NULL,
     facid 		INTEGER NOT NULL,
     memid		INTEGER NOT NULL,
-    starttime	TIMESTAMP NOT NULL,
+    starttime		TIMESTAMP NOT NULL,
     slots 		INTEGER NOT NULL,
     CONSTRAINT bookid_pk PRIMARY KEY (bookid),
     CONSTRAINT fk_facid FOREIGN KEY (facid) REFERENCES cd.facilities(facid),
