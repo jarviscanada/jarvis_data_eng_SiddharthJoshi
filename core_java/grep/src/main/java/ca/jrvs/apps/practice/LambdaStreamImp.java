@@ -57,6 +57,19 @@ public class LambdaStreamImp implements LambdaStreamExc {
         String[] messages = {"html", "head", "title", "body"};
         Consumer<String> printer = lambdaStream.getLambdaPrinter("<", ">");
         lambdaStream.printMessages(messages, printer);
+
+        // Printing Odd Numbers from the stream
+        IntStream anotherIntStream = lambdaStream.createIntStream(1, 30);
+        Consumer<String> oddPrinter = lambdaStream.getLambdaPrinter("odd number", "!");
+        lambdaStream.printOdd(anotherIntStream, oddPrinter);
+
+        // Squaring each number...
+        List<Integer> listOne = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> listTwo = Arrays.asList(11, 22, 33, 44, 55);
+        List<Integer> listThree = Arrays.asList(111, 222, 333, 444, 555);
+        List<List<Integer>> listCeption = Arrays.asList(listOne, listTwo, listThree);
+        Stream<List<Integer>> streamOfLists = listCeption.stream();
+        Stream<Integer> squaredStream = lambdaStream.flatNestedInt(streamOfLists);
     }
 
     /**
@@ -198,7 +211,7 @@ public class LambdaStreamImp implements LambdaStreamExc {
      * Return a lambda function that print a message with a prefix and suffix This lambda can be
      * useful to format logs
      * <p>
-     * You will learn: - functional interface <a href="http://bit.ly/2pTXRwM">...</a> & <a href="http://bit.ly/33onFig">...</a> - lambda
+     * More details here: functional interface <a href="http://bit.ly/2pTXRwM">...</a> & <a href="http://bit.ly/33onFig">...</a> - lambda
      * syntax
      * <p>
      * e.g. LambdaStreamExc lse = new LambdaStreamImp();
@@ -246,7 +259,7 @@ public class LambdaStreamImp implements LambdaStreamExc {
     }
 
     /**
-     * Print all odd numbers from a intStream. Please use `createIntStream` and `getLambdaPrinter`
+     * Print all odd numbers from a intStream using `createIntStream` and `getLambdaPrinter`
      * methods
      * <p>
      * e.g. lse.printOdd(lse.createIntStream(0, 5), lse.getLambdaPrinter("odd number:", "!"));
@@ -254,22 +267,43 @@ public class LambdaStreamImp implements LambdaStreamExc {
      * sout: odd number:1! odd number:3! odd number:5!
      *
      * @param intStream the stream of integers
-     * @param printer
+     * @param printer consumer
      */
     @Override
     public void printOdd(IntStream intStream, Consumer<String> printer) {
 
+        (intStream.filter((number) -> number % 2 != 0))
+            .forEach((number) -> printer.accept(Integer.toString(number)));
     }
 
     /**
-     * Square each number from the input. Please write two solutions and compare difference - using
-     * flatMap
+     * Square each number from the input.
+     * Two solutions - using flatmap in 2nd approach.
      *
-     * @param ints
-     * @return
+     * @param ints stream of collections.
+     * @return stream of squared objects from the @param's objects.
      */
     @Override
     public Stream<Integer> flatNestedInt(Stream<List<Integer>> ints) {
-        return null;
+
+        /* Without flatMap
+            List<Integer> squaredList = new ArrayList<>();
+            ints.forEach(list -> list.forEach((element) -> {
+                squaredList.add(element * element);
+                System.out.println(squaredList.toString());
+            }));
+
+            return squaredList.stream();
+        */
+
+        /* flatMap() method is helpful to flatten a Stream of collections to a Stream of objects.
+           Objects from all the collections in the original Stream are combined into a single collection.
+        */
+
+        // 1. Convert the Stream of collections into a stream of objects.
+        // 2. Further square each element by tapping into each object of new stream.
+        return ints
+            .flatMap(intList -> intList.stream())
+            .map((element) -> element * element);
     }
 }
