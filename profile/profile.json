@@ -27,6 +27,14 @@
       "description": "A Monitoring Agent intended for the Jarvis Linux Cluster Administrator Team (LCA). This project gathers the real-time data from all the available machines such as hardware specifications (CPU, Memory, etc.). This data is persisted in a relational database providing accurate records of data at a particular timestamp. This data will be used by the LCA team to manage resources. This project can be deployed across multiple host machines to enable real time data gathering. The technologies used for this project are Postgres Database, Docker, Git, GitHub and Linux.",
       "git_url": "/linux_sql",
       "name": "Cluster Monitor"
+    },
+    {
+      "description": [
+        "Grep App: This project is a robust simulation of the Grep Command Line Tool in Linux. It is implemented in Core Java utilizing Maven for seamless build management along with Docker for deployment. Users can input a regex pattern, select a starting directory for the search, and designate an output file. This empowers the tool to generate a comprehensive list of matched lines, ready for further analysis.",
+        "Stock Quote App: This app fetches Stock Quotes from the REST API endpoint and populates the database instance inside the Docker container with the obtained data."
+      ],
+      "git_url": "/core_java",
+      "name": "Core Java Apps"
     }
   ],
   "name": "Siddharth Joshi",
