@@ -24,6 +24,7 @@ public class JavaGrepImp implements JavaGrep {
 
     public static void main(String[] args) throws IOException {
 
+        // Creating a default simplistic configuration of logger (Displays on console).
         BasicConfigurator.configure();
 
         if (args.length != 3) {
@@ -56,7 +57,7 @@ public class JavaGrepImp implements JavaGrep {
     @Override
     public void process() throws IOException {
 
-        ArrayList<String> matchedLines = new ArrayList<>();
+        List<String> matchedLines = new ArrayList<>();
         for (File file : listAllFiles(rootPath)) {
             for (String line : readLines(file)) {
                 if (containsPattern(line)) {
@@ -76,6 +77,7 @@ public class JavaGrepImp implements JavaGrep {
     @Override
     public List<File> listAllFiles(String rootDirectory) {
 
+        // Instantiating a File Handler (Used by OS) which is just a reference to the file.
         File basePath = new File(rootDirectory);
 
         // Checking whether the path to the rootDirectory is valid or not.
@@ -84,15 +86,17 @@ public class JavaGrepImp implements JavaGrep {
             return null;
         }
 
-        // Creating a new List which stores the file reference objects.
+        // Creating a new List which stores the file handler reference objects.
         List<File> fileReferences = new ArrayList<>();
 
-        // .listFiles() method returns a list of all directories and files referenced by variable 'basePath'.
+        // This method returns an array of all directories and files in the directory referenced by variable 'basePath'.
         File[] files = basePath.listFiles();
 
         // If the 'files' variable has null value, then it means there are no files in the 'basePath'.
         if (files != null) {
             for (File file : files) {
+
+                // If it is a directory, get its absolute path and repeat the process.
                 if (file.isDirectory()) {
                     fileReferences.addAll(listAllFiles(file.getAbsolutePath()));
                 } else {
@@ -122,6 +126,9 @@ public class JavaGrepImp implements JavaGrep {
             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
 
             String lineRead;
+
+            // When the bufferedReader reaches the end of file, there won't be anything to read.
+            // Due to this, it will return a 'null' value and at that point, we can stop reading.
             while ((lineRead = bufferedReader.readLine()) != null) {
                 listOfLines.add(lineRead);
             }
@@ -162,7 +169,8 @@ public class JavaGrepImp implements JavaGrep {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
             for (String matchedLine : lines) {
-                bufferedWriter.write(matchedLine + "\n");
+                bufferedWriter.write(matchedLine);
+                bufferedWriter.newLine();
             }
         }
     }
