@@ -27,7 +27,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>ca.jrvs.apps.grep.JavaGrepImp</mainClass>
+              <mainClass>ca.jrvs.apps.bettergrep.JavaGrepImp</mainClass>
             </manifest>
           </archive>
         </configuration>
