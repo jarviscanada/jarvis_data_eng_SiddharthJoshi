@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration name="ApplicationLogger" status="info">
+
+  <appender class="ch.qos.logback.core.FileAppender" name="FlowAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+    <file>logs/application_flow.log</file>
+  </appender>
+
+  <appender class="ch.qos.logback.core.FileAppender" name="ErrorAppender">
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n%ex</pattern>
+    </encoder>
+    <file>logs/errors.log</file>
+  </appender>
+
+  <logger additivity="false" level="info" name="AppFlowLogger">
+    <appender-ref ref="FlowAppender"/>
+  </logger>
+
+  <logger additivity="false" level="error" name="ErrorLogger">
+    <appender-ref ref="ErrorAppender"/>
+  </logger>
+
+  <root level="error">
+    <appender-ref ref="FlowAppender"/>
+    <appender-ref ref="ErrorAppender"/>
+  </root>
+
+</configuration>
