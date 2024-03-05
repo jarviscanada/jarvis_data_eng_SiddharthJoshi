@@ -1,6 +1,5 @@
 # Core Java Apps
-This project consists of three Java applications below
+This project consists of two Java applications below
 
 1. [Java Grep App](./grep)
-2. [JDBC App](./jdbc)
-3. [Twitter CRUD App](./twitter)
+2. [Stock Quote App](./stockquote)
