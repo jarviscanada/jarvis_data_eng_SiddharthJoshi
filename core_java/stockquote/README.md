@@ -1,6 +1,6 @@
 # Stock Quote Application
 ## Introduction / Overview
-This is a personal Stock Wallet application that allows users to effortlessly buy, sell, and track all their
+This Project is a Personal Stock Wallet Application that allows users to effortlessly buy, sell, and track all their
 stocks in one place. Developed using core Java and managed with Maven, it ensures a smooth
 experience. Efficient data storage is powered by PostgreSQL via JDBC, while Docker makes deployment a
 smooth sail inside a portable container, accessible across various platforms. 
@@ -67,10 +67,10 @@ Refer [this](https://docs.docker.com/network/drivers/bridge/) for docker network
 
 ## Implementation
 ### ER Diagram
-![img.png](/assets/01_ER_Diagram.png)
+![img.png](assets/01_ER_Diagram.png)
 
 ### Application Design
-![img_4.png](/assets/02_application_diagram.png)
+![img.png](assets/02_application_diagram.png)
 
 ### Design Patterns
 Design patterns are used to implement this application keeping in mind the best practices
