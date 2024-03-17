@@ -20,7 +20,7 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_SiddharthJ
 **Core Java Apps** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_SiddharthJoshi/tree/master/core_java)]:
       
   - Grep App: This project is a robust simulation of the Grep Command Line Tool in Linux. It is implemented in Core Java utilizing Maven for seamless build management along with Docker for deployment. Users can input a regex pattern, select a starting directory for the search, and designate an output file. This empowers the tool to generate a comprehensive list of matched lines, ready for further analysis.
-  - Stock Quote App: This app fetches Stock Quotes from the REST API endpoint and populates the database instance inside the Docker container with the obtained data.
+  - Stock Quote App: This Application is a Personal Stock Wallet that allows users to effortlessly buy, sell, and track all their stocks in one place. This acts as a central repository for all the company stocks utilizing PostgreSQL via JDBC. This app is portable across all platforms.
 
 
 ## Highlighted Projects
