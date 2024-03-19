@@ -5,7 +5,7 @@ github_repo_root_url: https://github.com/jarviscanada/jarvis_data_eng_SiddharthJ
 
 # Introduce yourself, your academic and professional background.
 # What excites you about the software industry and your passion. At least 80 words
-summary: "Heya! Myself Siddharth Joshi. I am a Software Engineer with Bachelor of Technology in Computer Engineering from Charusat University. Being exposed with multiple technologies during my studies, I came to know its potential. I started experimenting and playing around with tech by building small projects such as 2D survival game in Godot Game Engine. After that, I participated in a project involving the replacement of the software in hospital's blood donation department. From time to time, I saw how the technology can be used to deliver values. This is where my true passion for Software Engineering was ignited. I have worked with wide array of technologies such as Java, Python, Django and relational databases. I have experience working in a team environment which I first gained by working at ABXR Engine, a startup dominating the AR industry where I worked on Python and Django. I am confident I can deliver values to your organization along with my technical acumen."
+summary: "Hello! I'm Siddharth Joshi, a Software Engineer with a Bachelor of Technology in Computer Engineering from Charusat University. My journey with technology began with small passion projects like a 2D survival game in the Godot Game Engine in University. I later contributed to a project that revamped the software in the University's hospital's blood donation department, discovering the impactful potential of technology, which further fueled my passion for it. I am proficient in Java, Python and Relational Databases. I gained valuable teamwork experience at ABXR Engine, a startup dominating in Augmented Reality industry. I'm confident in bringing both technical expertise and value to your organization."
 
 
 # Group your skills by level.
@@ -15,8 +15,8 @@ skills:
   proficient:
     - Java
     - Python
-    - Linux/Bash
     - RDBMS/SQL
+    - Linux/Bash
     - Agile/Scrum
     - Git
   # At least 5 skills
@@ -41,27 +41,12 @@ jarvis_projects:
     # The project description allows hiring managers to understand your project and technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
     # The project description must start with an action verb (https://bit.ly/3guO98u)
     description: A Monitoring Agent intended for the Jarvis Linux Cluster Administrator Team (LCA). This project gathers the real-time data from all the available machines such as hardware specifications (CPU, Memory, etc.). This data is persisted in a relational database providing accurate records of data at a particular timestamp. This data will be used by the LCA team to manage resources. This project can be deployed across multiple host machines to enable real time data gathering. The technologies used for this project are Postgres Database, Docker, Git, GitHub and Linux.
+
   - name: "Core Java Apps"
     git_url: "/core_java"
     description:
-      - "Twitter App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-      - "JDBC App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-      - "Grep App: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam."
-  - name: "Springboot App"
-    git_url: "/springboot"
-    description: ""
-  - name: "Python Data Analytics"
-    git_url: "/python_data_anlytics"
-    description: ""
-  - name: "Hadoop"
-    git_url: "/hadoop"
-    description: ""
-  - name: "Spark"
-    git_url: "/spark"
-    description: ""
-  - name: "Cloud/DevOps"
-    git_url: "/cloud_devops"
-    description: ""
+      - "Grep App: This project is a robust simulation of the Grep Command Line Tool in Linux. It is implemented in Core Java utilizing Maven for seamless build management along with Docker for deployment. Users can input a regex pattern, select a starting directory for the search, and designate an output file. This empowers the tool to generate a comprehensive list of matched lines, ready for further analysis."
+      - "Stock Quote App: This Application is a Personal Stock Wallet that allows users to effortlessly buy, sell, and track all their stocks in one place. This acts as a central repository for all the company stocks utilizing PostgreSQL via JDBC. This app is portable across all platforms."
 
 # List of personal or academic projects
 # Feel free to add more projects
@@ -76,7 +61,7 @@ highlighted_projects:
     #project name
   - name: "Blood Bank Data Management System"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
-    description: "Developed and managed a highly efficient full-stack application for the university hospital, utilizing HTML, CSS, Bootstrap, MySQL, JavaScript, and PHP. The old legacy system of the blood donation department reeked of bugs and errors along with inconsistencies. This project enhanced the older system serving as a replacement with refined UI, robust database and smooth navigation. As a result, blood donation department operated more smoothly than before thus enhancing patient care and quality service to the patients."
+    description: "In this project, I worked in developing a highly efficient full-stack application for the university hospital, utilizing HTML, CSS, Bootstrap, MySQL, JavaScript, and PHP. The old legacy system of the blood donation department reeked of bugs and errors along with inconsistencies. This project enhanced the older system serving as a replacement with refined UI, robust database and smooth navigation. As a result, blood donation department operated more smoothly than before thus enhancing patient care and quality service to the patients."
 
 #List of professional experience
 #The job description allows hiring managers to understand your job and the technologies you used(e.g. programming languages, libraries, algorithms, hardware, tools, etc.).
@@ -84,14 +69,14 @@ highlighted_projects:
 professional_experience:
   #Write your Jarvis role as a professional experience rather than training.
   - title: "Software Engineer"
-    company: "Jarvis"
+    company: "Jarvis Consulting Group"
     duration: "Nov 2023 - Present"
     # The project description must start with an action verb (https://bit.ly/3guO98u)
     description: "Leveraged multiple cutting-edge technologies to build multiple projects spanning in various fields of software."
   - title: "Software Engineer"
     company: "ABXR Engine"
     duration: "Aug 2023 - Dec 2023"
-    description: "In ABXR Engine no-code platform, people can create AR content which they can play once published within minutes leveraging wide array of in-built tools. One of them being adding AI generated voice to the characters and scenes. I was working on designing and implementing RESTful APIs which would generate AI-based text-to-voice enabling the users to generate and play a variety of different voices including famous celebrity voices. To store the voices so they are saved with the content, AWS S3 bucket was leveraged along with Python which would store the voices on cloud from the backend."
+    description: "In ABXR Engine which is a no-code platform, people can create AR content which they can play once published within minutes leveraging wide array of in-built tools. One of them being adding AI-generated voice to the characters and scenes. I was working on designing and implementing RESTful APIs which would generate AI-based text-to-voice enabling the users to generate and play a variety of different voices including famous celebrity voices. To store the voices so they are saved with the content, AWS S3 bucket was leveraged along with Python which would store the voices on cloud from the backend."
 
 #List of education
 education: 
