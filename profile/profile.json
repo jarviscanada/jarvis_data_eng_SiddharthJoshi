@@ -67,17 +67,18 @@
   "skills": {
     "competent": [
       "Django",
-      "C/C++",
-      "JavaScript",
+      "Docker",
       "Flask",
+      "JavaScript",
+      "Spring Boot",
       "Godot Game Engine"
     ],
     "familiar": [
       "C#",
+      "C/C++",
       ".NET Framework",
       "Amazon Web Services",
-      "NoSQL",
-      "Docker"
+      "NoSQL"
     ],
     "proficient": [
       "Java",
