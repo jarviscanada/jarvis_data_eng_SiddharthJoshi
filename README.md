@@ -6,9 +6,9 @@ Hello! I'm Siddharth Joshi, a Software Engineer with a Bachelor of Technology in
 
 **Proficient:** Java, Python, RDBMS/SQL, Linux/Bash, Agile/Scrum, Git
 
-**Competent:** Django, C/C++, JavaScript, Flask, Godot Game Engine
+**Competent:** Django, Docker, Flask, JavaScript, Spring Boot, Godot Game Engine
 
-**Familiar:** C#, .NET Framework, Amazon Web Services, NoSQL, Docker
+**Familiar:** C#, C/C++, .NET Framework, Amazon Web Services, NoSQL
 
 ## Jarvis Projects
 

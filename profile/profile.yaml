@@ -22,17 +22,18 @@ skills:
   # At least 5 skills
   competent:
     - Django
-    - C/C++
-    - JavaScript
+    - Docker
     - Flask
+    - JavaScript
+    - Spring Boot
     - Godot Game Engine
   # At least 5 skills
   familiar:
     - C#
+    - C/C++
     - .NET Framework
     - Amazon Web Services
     - NoSQL
-    - Docker
 
 # List of Jarvis projects
 jarvis_projects:
