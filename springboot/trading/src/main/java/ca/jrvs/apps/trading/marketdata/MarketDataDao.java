@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.marketdata;
 
-import ca.jrvs.apps.trading.dto.IexQuote;
+import ca.jrvs.apps.trading.iexquote.IexQuote;
 import com.google.common.collect.Iterables;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;

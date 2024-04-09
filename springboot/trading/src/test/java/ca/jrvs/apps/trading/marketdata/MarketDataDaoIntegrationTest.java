@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.marketdata;
 
-import ca.jrvs.apps.trading.dto.IexQuote;
+import ca.jrvs.apps.trading.iexquote.IexQuote;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
