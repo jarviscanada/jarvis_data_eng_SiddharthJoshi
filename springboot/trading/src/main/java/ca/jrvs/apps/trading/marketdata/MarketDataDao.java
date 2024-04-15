@@ -46,7 +46,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
             return Optional.of(iexQuoteList.get(0));
         }
 
-        // Otherwise return an optional containing a null
+        // Otherwise return an empty optional
         return Optional.empty();
     }
 

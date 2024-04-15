@@ -17,6 +17,26 @@ public class QuoteService {
     @Autowired
     private QuoteDao quoteDao;
 
+    /**
+     * Helper method to map an IexQuote to Quote entity
+     *
+     * @param iexQuote IexQuote from the IEX endpoint
+     * @return Quote instance
+     */
+    protected static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
+
+        // Creating a new quote and updating it with the latest values
+        Quote updatedQuote = new Quote();
+        updatedQuote.setTicker(iexQuote.getSymbol());
+        updatedQuote.setAskPrice((iexQuote.getIexAskPrice() == null) ? -1 : iexQuote.getIexAskPrice());
+        updatedQuote.setAskSize((iexQuote.getIexAskSize() == null) ? -1 : iexQuote.getIexAskSize());
+        updatedQuote.setBidPrice((iexQuote.getIexBidPrice()) == null ? -1 : iexQuote.getIexBidPrice());
+        updatedQuote.setBidSize((iexQuote.getIexBidSize()) == null ? -1 : iexQuote.getIexBidSize());
+        updatedQuote.setLastPrice((iexQuote.getLatestPrice()) == null ? -1 : iexQuote.getLatestPrice());
+
+        return updatedQuote;
+    }
+
     public List<IexQuote> findIexQuotes(String ticker) {
 
         // If "," exists, there is potentially a request for multiple company quotes. So in that case, call findAllById method in the repository layer
@@ -36,7 +56,7 @@ public class QuoteService {
 
         this.quoteDao.findAll().forEach((quote) -> {
             IexQuote updatedIexQuote = this.marketDataDao.findById(quote.getTicker()).orElseThrow(() ->
-                    new IllegalArgumentException("Invalid Ticker inside the Database: " + quote.getTicker()));
+                    new IllegalArgumentException("[FATAL]: Invalid Ticker inside the Database: " + quote.getTicker()));
             Quote updatedQuote = buildQuoteFromIexQuote(updatedIexQuote);
             this.quoteDao.save(updatedQuote);
         });
@@ -44,31 +64,40 @@ public class QuoteService {
 
     /**
      * Get all the IexQuotes from the endpoint, convert to Quote entity and save the quote entity in the database
+     *
      * @param tickers list of company tickers / symbols
      * @return list of saved quotes
      */
     public List<Quote> saveQuotes(List<String> tickers) {
 
+        StringBuilder queryParameter = new StringBuilder();
+        tickers.forEach((symbol) -> queryParameter.append(symbol).append(","));
+
         List<Quote> quoteList = new ArrayList<>();
-        this.marketDataDao.findAllById(tickers).forEach((iexQuote) -> {
-            Quote newQuote = buildQuoteFromIexQuote(iexQuote);
-            quoteList.add(this.quoteDao.save(newQuote));
-        });
+        this.marketDataDao.findAllById(Collections.singletonList(String.valueOf(queryParameter)))
+                .forEach((iexQuote) -> {
+                    Quote newQuote = buildQuoteFromIexQuote(iexQuote);
+                    quoteList.add(this.quoteDao.save(newQuote));
+                });
 
         return quoteList;
     }
 
     /**
      * finds an IexQuote from a given ticker
+     *
      * @param ticker company symbol
      * @return instance of the IexQuote
      */
     public IexQuote findIexQuoteById(String ticker) {
+
+        // If Optional is empty, throw an exception
         return this.marketDataDao.findById(ticker).orElseThrow(() -> new IllegalArgumentException("Invalid ticker"));
     }
 
     /**
      * updates a quote to the database with validation
+     *
      * @param quote quote to be updated
      * @return inserted quote
      */
@@ -83,6 +112,7 @@ public class QuoteService {
 
     /**
      * Validate the quote from the client side ot the IEX system. If exists, add it to the database otherwise don't perform the operation
+     *
      * @param newQuote new quote to be added in the databaser
      * @return instance of the quote added
      */
@@ -106,6 +136,7 @@ public class QuoteService {
 
     /**
      * find all quotes from the quote table
+     *
      * @return list of all quotes
      */
     public List<Quote> findAllQuotes() {
@@ -114,29 +145,11 @@ public class QuoteService {
 
     /**
      * fetches the quote from the quote table if exists
+     *
      * @param tickerId company symbol
      * @return instance of the quote
      */
     public Quote findQuoteById(String tickerId) {
         return quoteDao.findById(tickerId).orElse(null);
-    }
-
-    /**
-     * Helper method to map an IexQuote to Quote entity
-     * @param iexQuote IexQuote from the IEX endpoint
-     * @return Quote instance
-     */
-    protected static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
-
-        // Creating a new quote and updating it with the latest values
-        Quote updatedQuote = new Quote();
-        updatedQuote.setTicker(iexQuote.getSymbol());
-        updatedQuote.setAskPrice((iexQuote.getIexAskPrice() == null) ? -1 : iexQuote.getIexAskPrice());
-        updatedQuote.setAskSize((iexQuote.getIexAskSize() == null) ? -1 : iexQuote.getIexAskSize());
-        updatedQuote.setBidPrice((iexQuote.getIexBidPrice()) == null ? -1 : iexQuote.getIexBidPrice());
-        updatedQuote.setBidSize((iexQuote.getIexBidSize()) == null ? -1 : iexQuote.getIexBidSize());
-        updatedQuote.setLastPrice((iexQuote.getLatestPrice()) == null ? -1 : iexQuote.getLatestPrice());
-
-        return updatedQuote;
     }
 }
