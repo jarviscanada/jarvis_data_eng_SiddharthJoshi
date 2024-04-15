@@ -16,6 +16,19 @@ public class Quote {
     private Double askPrice;
     private Long askSize;
 
+    public Quote() {
+
+    }
+
+    public Quote(String ticker, Double lastPrice, Double bidPrice, Long bidSize, Double askPrice, Long askSize) {
+        this.ticker = ticker;
+        this.lastPrice = lastPrice;
+        this.bidPrice = bidPrice;
+        this.bidSize = bidSize;
+        this.askPrice = askPrice;
+        this.askSize = askSize;
+    }
+
     public String getTicker() {
         return ticker;
     }
