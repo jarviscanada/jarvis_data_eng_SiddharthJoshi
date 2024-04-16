@@ -1,13 +1,15 @@
 package ca.jrvs.apps.trading.marketdata;
 
-import ca.jrvs.apps.trading.iexquote.IexQuote;
-import ca.jrvs.apps.trading.quote.Quote;
-import ca.jrvs.apps.trading.quote.QuoteDao;
-import ca.jrvs.apps.trading.quote.QuoteService;
+import ca.jrvs.apps.trading.dao.MarketDataDao;
+import ca.jrvs.apps.trading.dto.IexQuote;
+import ca.jrvs.apps.trading.marketdata.config.IntegrationTestConfiguration;
+import ca.jrvs.apps.trading.domain.Quote;
+import ca.jrvs.apps.trading.repository.QuoteDao;
+import ca.jrvs.apps.trading.service.QuoteService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.context.annotation.Import;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@Import(IntegrationTestConfiguration.class)
 public class QuoteServiceIntegrationTest {
 
     @Autowired
@@ -24,30 +26,17 @@ public class QuoteServiceIntegrationTest {
     private QuoteDao quoteDao;
     @Autowired
     private QuoteService quoteService;
-    private Quote testQuoteOne;
-    private Quote testQuoteTwo;
-    private Quote testQuoteThree;
+    @Autowired
+    private IntegrationTestConfiguration testConfig;
 
     @BeforeEach
-    void setup() {
-
-        testQuoteOne = new Quote("TEST_ONE", 1000D, 995D,
-                2L, 1001D, 2L);
-
-        testQuoteTwo = new Quote("TEST_TWO", 2000D, 1995D,
-                2L, 2001D, 2L);
-
-        testQuoteThree = new Quote("TEST_THREE", 3000D, 2995D,
-                2L, 3001D, 2L);
-
-        quoteDao.save(testQuoteOne);
-        quoteDao.save(testQuoteTwo);
-        quoteDao.save(testQuoteThree);
+    public void setup() {
+        testConfig.setUpTestData();
     }
 
     @AfterEach
-    void teardown() {
-        quoteDao.deleteAll();
+    public void tearDown() {
+        testConfig.cleanUpTestData();
     }
 
     @Test

@@ -1,7 +1,8 @@
 package ca.jrvs.apps.trading.marketdata;
 
-import ca.jrvs.apps.trading.iexquote.IexQuote;
-import ca.jrvs.apps.trading.quote.QuoteDao;
+import ca.jrvs.apps.trading.dao.MarketDataDao;
+import ca.jrvs.apps.trading.dto.IexQuote;
+import ca.jrvs.apps.trading.repository.QuoteDao;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
