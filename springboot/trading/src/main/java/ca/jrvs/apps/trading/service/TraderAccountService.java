@@ -192,11 +192,6 @@ public class TraderAccountService {
      * @return true if any null value is present otherwise false
      */
     private boolean areTraderFieldsNull(Trader trader) {
-        System.out.println(trader.getCountry());
-        System.out.println(trader.getDob());
-        System.out.println(trader.getEmail());
-        System.out.println(trader.getFirst_name());
-        System.out.println(trader.getLast_name());
         return trader.getDob() == null || trader.getCountry() == null || trader.getEmail() == null
                 || trader.getFirst_name() == null || trader.getLast_name() == null;
     }
