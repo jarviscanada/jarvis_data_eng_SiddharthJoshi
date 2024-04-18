@@ -11,7 +11,7 @@ public class Application {
 
         System.out.println("Initializing Trading Application...");
 
-        // Creates the servlet container and hosts the application there.
+        // Creates the servlet container and hosts the application on Tomcat.
         SpringApplication.run(Application.class, args);
     }
 }

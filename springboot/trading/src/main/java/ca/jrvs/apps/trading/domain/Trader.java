@@ -1,6 +1,8 @@
 package ca.jrvs.apps.trading.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.sql.Date;
@@ -8,10 +10,22 @@ import java.sql.Date;
 @Entity
 public class Trader {
 
+    public Trader() {
+
+    }
+    public Trader(Integer id, String first_name, String last_name, Date dob, String country, String email) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.dob = dob;
+        this.country = country;
+        this.email = email;
+    }
+
     // Primary Key
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String first_name;
     private String last_name;
     private Date dob;

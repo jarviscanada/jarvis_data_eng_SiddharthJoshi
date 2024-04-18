@@ -8,6 +8,10 @@ import org.hibernate.annotations.Immutable;
 @Immutable
 public class Position {
 
+    public Position() {
+
+    }
+
     @Id
     private Integer account_id;
     private String ticker;
