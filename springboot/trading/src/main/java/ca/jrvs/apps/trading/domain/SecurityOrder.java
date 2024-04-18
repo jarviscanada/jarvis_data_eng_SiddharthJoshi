@@ -1,12 +1,29 @@
 package ca.jrvs.apps.trading.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class SecurityOrder {
 
+    public SecurityOrder() {
+
+    }
+
+    public SecurityOrder(Integer id, int account_id, String status, String ticker, int size, double price, String notes) {
+        this.id = id;
+        this.account_id = account_id;
+        this.status = status;
+        this.ticker = ticker;
+        this.size = size;
+        this.price = price;
+        this.notes = notes;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int account_id;
     private String status;

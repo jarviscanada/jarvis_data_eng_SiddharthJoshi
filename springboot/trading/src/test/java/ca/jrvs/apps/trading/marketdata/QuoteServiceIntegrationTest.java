@@ -10,6 +10,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Import(IntegrationTestConfiguration.class)
+@ActiveProfiles("test")
 public class QuoteServiceIntegrationTest {
 
     @Autowired
@@ -31,12 +33,12 @@ public class QuoteServiceIntegrationTest {
 
     @BeforeEach
     public void setup() {
-        testConfig.setUpTestData();
+        testConfig.setUpQuoteData();
     }
 
     @AfterEach
     public void tearDown() {
-        testConfig.cleanUpTestData();
+        testConfig.cleanUpQuoteData();
     }
 
     @Test
