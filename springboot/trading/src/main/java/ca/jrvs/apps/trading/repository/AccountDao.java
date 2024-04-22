@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.repository;
 
-import ca.jrvs.apps.trading.domain.Account;
+import ca.jrvs.apps.trading.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

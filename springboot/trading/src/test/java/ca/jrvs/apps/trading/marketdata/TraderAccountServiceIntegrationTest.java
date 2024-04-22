@@ -1,8 +1,12 @@
 package ca.jrvs.apps.trading.marketdata;
 
-import ca.jrvs.apps.trading.domain.Account;
-import ca.jrvs.apps.trading.domain.Trader;
+import ca.jrvs.apps.trading.entity.Account;
+import ca.jrvs.apps.trading.entity.Trader;
 import ca.jrvs.apps.trading.dto.TraderAccountView;
+import ca.jrvs.apps.trading.exceptions.CannotPerformOperationException;
+import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
+import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
+import ca.jrvs.apps.trading.exceptions.UnknownDataException;
 import ca.jrvs.apps.trading.marketdata.config.IntegrationTestConfiguration;
 import ca.jrvs.apps.trading.repository.AccountDao;
 import ca.jrvs.apps.trading.repository.SecurityOrderDao;
@@ -64,22 +68,22 @@ public class TraderAccountServiceIntegrationTest {
         assertNotNull(testView.getTrader());
 
         Trader testTraderTwo = new Trader(null, "Test", "Test", null, "null", "w@gmail.com");
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(InvalidRequestException.class, () ->
                 traderAccountService.createTraderAndAccount(testTraderTwo));
     }
 
     @Test
-    void deleteTraderById_ThrowExceptions() {
+    void deleteTraderByIdTest_ThrowExceptions() {
 
         // Passing null in traderId field
         assertThrows(
-                IllegalArgumentException.class,
+                InvalidRequestException.class,
                 () -> traderAccountService.deleteTraderById(null)
         );
 
-        // Passing an Id of the trader which doesn't exist
+        // Passing an ID of the trader which doesn't exist
         assertThrows(
-                IllegalArgumentException.class,
+                ResourceNotFoundException.class,
                 () -> traderAccountService.deleteTraderById(494782)
         );
 
@@ -87,16 +91,26 @@ public class TraderAccountServiceIntegrationTest {
         Trader testTrader = new Trader(null, "Test", "Test", Date.valueOf("1991-09-14"),
                 "Test", "test@gmail.com");
         Trader testSavedTrader = traderDao.save(testTrader);
-        System.out.println(testSavedTrader.getId());
         Account testAccount = new Account(null, testSavedTrader.getId(), 500);
         accountDao.save(testAccount);
 
-        assertThrows(IllegalArgumentException.class,
-                () -> traderAccountService.deleteTraderById(testSavedTrader.getId()));
+        assertThrows(
+                CannotPerformOperationException.class,
+                () -> traderAccountService.deleteTraderById(testSavedTrader.getId())
+        );
+
+        // Creating a trader only, but not an account
+        testTrader = new Trader(null, "Test", "Test", Date.valueOf("1991-09-14"),
+                "Test", "test@gmail.com");
+        Trader test = traderDao.save(testTrader);
+        assertThrows(
+                UnknownDataException.class,
+                () -> traderAccountService.deleteTraderById(test.getId())
+        );
     }
 
     @Test
-    void deleteTraderById_performDeletion() {
+    void deleteTraderByIdTest_performDeletion() {
 
         // Fetching the existing traders
         List<Integer> traderIds = new ArrayList<>();
@@ -113,18 +127,18 @@ public class TraderAccountServiceIntegrationTest {
     void depositFundsTest_throwException() {
 
         assertThrows(
-                IllegalArgumentException.class,
+                InvalidRequestException.class,
                 () -> traderAccountService.depositFunds(null, 1000D)
         );
 
         assertThrows(
-                IllegalArgumentException.class,
+                InvalidRequestException.class,
                 () -> traderAccountService.depositFunds(1, 0D)
         );
 
         // Trader with ID 0 doesn't exist
         assertThrows(
-                IllegalArgumentException.class,
+                CannotPerformOperationException.class,
                 () -> traderAccountService.depositFunds(0, 10000D)
         );
     }
@@ -148,12 +162,12 @@ public class TraderAccountServiceIntegrationTest {
     void withdrawFundsTest_throwExceptions() {
 
         assertThrows(
-                IllegalArgumentException.class,
+                InvalidRequestException.class,
                 () -> traderAccountService.withdrawFunds(null, 1000D)
         );
 
         assertThrows(
-                IllegalArgumentException.class,
+                InvalidRequestException.class,
                 () -> traderAccountService.withdrawFunds(1, 0D)
         );
 
@@ -164,7 +178,7 @@ public class TraderAccountServiceIntegrationTest {
 
         // The trader is initialized with 0 funds, so withdrawing should throw an exception
         assertThrows(
-                IllegalArgumentException.class,
+                CannotPerformOperationException.class,
                 () -> traderAccountService.withdrawFunds(traderId, 5000D)
         );
     }
@@ -187,7 +201,7 @@ public class TraderAccountServiceIntegrationTest {
         assertEquals(1D, updatedTestAccount.getAmount());
 
         assertThrows(
-                IllegalArgumentException.class, () ->
+                CannotPerformOperationException.class, () ->
                 traderAccountService.withdrawFunds(savedTestAccount.getTrader_id(), 100D)
         );
     }

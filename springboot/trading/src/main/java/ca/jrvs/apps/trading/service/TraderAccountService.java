@@ -1,10 +1,13 @@
 package ca.jrvs.apps.trading.service;
 
-import ca.jrvs.apps.trading.domain.Account;
-import ca.jrvs.apps.trading.domain.Position;
-import ca.jrvs.apps.trading.domain.SecurityOrder;
-import ca.jrvs.apps.trading.domain.Trader;
+import ca.jrvs.apps.trading.entity.Account;
+import ca.jrvs.apps.trading.entity.SecurityOrder;
+import ca.jrvs.apps.trading.entity.Trader;
 import ca.jrvs.apps.trading.dto.TraderAccountView;
+import ca.jrvs.apps.trading.exceptions.CannotPerformOperationException;
+import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
+import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
+import ca.jrvs.apps.trading.exceptions.UnknownDataException;
 import ca.jrvs.apps.trading.repository.AccountDao;
 import ca.jrvs.apps.trading.repository.PositionDao;
 import ca.jrvs.apps.trading.repository.SecurityOrderDao;
@@ -37,7 +40,7 @@ public class TraderAccountService {
     public TraderAccountView createTraderAndAccount(Trader trader) {
 
         if (areTraderFieldsNull(trader)) {
-            throw new IllegalArgumentException("Trader fields must not be null");
+            throw new InvalidRequestException("Bad Request. Data fields associated with the Trader must not be null.");
         }
 
         // Add a new trader account record in the database
@@ -59,43 +62,30 @@ public class TraderAccountService {
     public void deleteTraderById(Integer traderId) {
 
         if (traderId == null) {
-
-            // Client Side Issue - Invalid Request
-            throw new IllegalArgumentException("Trader ID cannot be null.");
+            throw new InvalidRequestException("Invalid Request. Trader ID cannot be null.");
         }
 
         if (!traderDao.existsById(traderId)) {
-
-            // Client Side Issue - Invalid Request
-            throw new IllegalArgumentException(
-                    "Trader associated with the id " + traderId + " doesn't exist inside the database"
+            throw new ResourceNotFoundException(
+                    "Cannot delete the trader. Trader associated with the id " + traderId + " doesn't exist inside the database."
             );
         }
 
         Optional<Account> optionalAccount = accountDao.findById(traderId);
         if (optionalAccount.isEmpty()) {
-            throw new RuntimeException("FATAL: Account associated with the user doesn't exist.");
+            throw new UnknownDataException("Sorry, we are experiencing some issues within our services. Please give us a moment while we work to fix it.");
         }
 
         Account account = optionalAccount.get();
         if (account.getAmount() != 0) {
-            throw new IllegalArgumentException(
+            throw new CannotPerformOperationException(
                     "Error. Cannot delete the trader as the account associated with that trader still has funds."
             );
         }
 
-        /*
-        List<Position> positions = positionDao.findAllByAccountId((account.getTrader_id()));
-        if (positions.size() > 0) {
-            throw new IllegalArgumentException(
-                    "Cannot delete the account. Account holder already has open position/s."
-            );
-        }
-        */
-
         // After all these checks, account is now eligible for deletion
 
-        // First, delete all the orders associated with the account
+        // First, delete all the orders associated with the account. Position view will get updated as security_order table gets modified
         List<SecurityOrder> orders = securityOrderDao.findAllByAccountId(account.getId());
         orders.forEach((order) -> securityOrderDao.deleteById(order.getAccount_id()));
 
@@ -121,12 +111,12 @@ public class TraderAccountService {
         Optional<Account> accountOptional = accountDao.findById(traderId);
 
         if (accountOptional.isEmpty()) {
-            throw new IllegalArgumentException("Account associated with " + traderId + " doesn't exist.");
+            throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }
 
         Account account = accountOptional.get();
 
-        // Update the funds in DTO / domain
+        // Update the funds in DTO / entity
         account.setAmount(funds + account.getAmount());
 
         return accountDao.save(account);
@@ -146,13 +136,13 @@ public class TraderAccountService {
 
         Optional<Account> accountOptional = accountDao.findById(traderId);
         if (accountOptional.isEmpty()) {
-            throw new IllegalArgumentException("Account associated with " + traderId + " doesn't exist.");
+            throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }
 
         Account account = accountOptional.get();
         double remainingBalance = account.getAmount() - funds;
         if (remainingBalance < 0) {
-            throw new IllegalArgumentException("Insufficient funds in the account.");
+            throw new CannotPerformOperationException("Operation failed. Insufficient funds in the account with ID ");
         }
 
         account.setAmount(remainingBalance);
@@ -167,13 +157,11 @@ public class TraderAccountService {
     private void validateBeforeTransaction(Integer id, Double funds) {
 
         if (id == null) {
-
-            // Client side Issue
-            throw new IllegalArgumentException("Trader ID cannot be null");
+            throw new InvalidRequestException("Invalid Request. Trader ID cannot be null.");
         }
 
         else if (funds < 1) {
-            throw new IllegalArgumentException("Funds should be greater than 0");
+            throw new InvalidRequestException("Invalid Request. Funds must be greater than 0.");
         }
     }
 

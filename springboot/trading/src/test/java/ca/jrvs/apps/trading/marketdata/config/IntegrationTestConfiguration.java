@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.marketdata.config;
 
-import ca.jrvs.apps.trading.domain.Account;
-import ca.jrvs.apps.trading.domain.Quote;
-import ca.jrvs.apps.trading.domain.SecurityOrder;
-import ca.jrvs.apps.trading.domain.Trader;
+import ca.jrvs.apps.trading.entity.Account;
+import ca.jrvs.apps.trading.entity.Quote;
+import ca.jrvs.apps.trading.entity.SecurityOrder;
+import ca.jrvs.apps.trading.entity.Trader;
 import ca.jrvs.apps.trading.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;

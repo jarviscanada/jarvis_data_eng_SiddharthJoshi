@@ -1,7 +1,7 @@
 package ca.jrvs.apps.trading.dto;
 
-import ca.jrvs.apps.trading.domain.Account;
-import ca.jrvs.apps.trading.domain.Trader;
+import ca.jrvs.apps.trading.entity.Account;
+import ca.jrvs.apps.trading.entity.Trader;
 
 public class TraderAccountView {
 
