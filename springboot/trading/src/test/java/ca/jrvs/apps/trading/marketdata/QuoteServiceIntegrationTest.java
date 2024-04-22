@@ -2,8 +2,11 @@ package ca.jrvs.apps.trading.marketdata;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.dto.IexQuote;
+import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
+import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
+import ca.jrvs.apps.trading.exceptions.UnknownDataException;
 import ca.jrvs.apps.trading.marketdata.config.IntegrationTestConfiguration;
-import ca.jrvs.apps.trading.domain.Quote;
+import ca.jrvs.apps.trading.entity.Quote;
 import ca.jrvs.apps.trading.repository.QuoteDao;
 import ca.jrvs.apps.trading.service.QuoteService;
 import org.junit.jupiter.api.*;
@@ -42,7 +45,7 @@ public class QuoteServiceIntegrationTest {
     }
 
     @Test
-    void QuoteService_findIexQuotes_ReturnsListOfIexQuotes() {
+    void findIexQuotesTest_ReturnsListOfIexQuotes() {
 
         List<IexQuote> iexQuoteList = quoteService.findIexQuotes("MSFT,AAPL");
         assertEquals(2, iexQuoteList.size());
@@ -50,32 +53,34 @@ public class QuoteServiceIntegrationTest {
         iexQuoteList = quoteService.findIexQuotes("NVDA");
         assertEquals(1, iexQuoteList.size());
 
-        iexQuoteList = quoteService.findIexQuotes("DEFINITELY CORRECT TICKER");
-        assertEquals(0, iexQuoteList.size());
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> quoteService.findIexQuotes("DEFINITELY CORRECT TICKER")
+        );
     }
 
     @Test
-    void QuoteService_findIexQuoteById_ReturnsIexQuote() {
+    void findIexQuoteByIdTest_ReturnsIexQuote() {
 
         assertEquals("MSFT", quoteService.findIexQuoteById("MSFT").getSymbol());
         assertThrows(
-                IllegalArgumentException.class,
+                ResourceNotFoundException.class,
                 () -> quoteService.findIexQuoteById("DEFINITELY CORRECT TICKER")
         );
     }
 
     @Test
-    void QuoteService_updateMarketData_updatesQuoteTable() {
+    void updateMarketDataTest_updatesQuoteTable() {
 
         // Exception because tickers are invalid inside database, so cannot update
         assertThrows(
-                IllegalArgumentException.class,
+                UnknownDataException.class,
                 () -> quoteService.updateMarketData()
         );
     }
 
     @Test
-    void QuoteService_saveQuotes_savesQuotes() {
+    void saveQuotesTest_savesQuotes() {
 
         List<String> tickers = Arrays.asList("MSFT", "NVDA", "GOOG");
         List<Quote> quoteList = quoteService.saveQuotes(tickers);
@@ -96,7 +101,7 @@ public class QuoteServiceIntegrationTest {
     }
 
     @Test
-    void QuoteService_updateQuote_updatesQuoteInsideDb() {
+    void updateQuoteTest_updatesQuoteInsideDb() {
 
         Quote newQuoteWithUpdates = new Quote("TEST_ONE", 1000D, 995D,
                 2L, 5555D, 2L);
@@ -105,49 +110,57 @@ public class QuoteServiceIntegrationTest {
 
         Quote quoteToUpdate = new Quote("NOT_IN_DB", 1000D, 995D,
                 2L, 1001D, 2L);
-        updatedTestQuote = quoteService.updateQuote(quoteToUpdate);
-        assertNull(updatedTestQuote);
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> quoteService.updateQuote(quoteToUpdate)
+        );
     }
 
     @Test
-    void QuoteService_addQuote_addsNewQuoteInDb() {
+    void addQuoteTest_addsNewQuoteInDb() {
 
-        Quote newTestQuote = new Quote("MSFT_TEST", 345D, 350D,
+        Quote newTestQuoteOne = new Quote("MSFT_TEST", 345D, 350D,
                 1L, 330D, 1L);
 
         // Case 1: Quote ID passed and the actual Quote are both different (Client side Issue)
-        Quote insertedTestQuote = quoteService.addQuote("AAPL_TEST", newTestQuote);
-        assertNull(insertedTestQuote);
+        assertThrows(
+                InvalidRequestException.class,
+                () -> quoteService.addQuote("AAPL_TEST", newTestQuoteOne)
+        );
 
         // Case 2: Quote provided doesn't exist in the Iex Repository
-        insertedTestQuote = quoteService.addQuote("MSFT_TEST", newTestQuote);
-        assertNull(insertedTestQuote);
+        assertThrows(
+                InvalidRequestException.class,
+                () -> quoteService.addQuote("MSFT_TEST", newTestQuoteOne)
+        );
 
         // Case 3: Quote provided exists in the Iex Repository
-        newTestQuote = new Quote("MSFT", 345D, 350D,
+        Quote newTestQuoteTwo = new Quote("MSFT", 345D, 350D,
                 1L, 330D, 1L);
-        insertedTestQuote = quoteService.addQuote("MSFT", newTestQuote);
+        Quote insertedTestQuote = quoteService.addQuote("MSFT", newTestQuoteTwo);
         assertEquals("MSFT", insertedTestQuote.getTicker());
     }
 
     @Test
-    void QuoteService_findAllQuotes_fetchesAllRecordsFromDb() {
+    void findAllQuotesTest_fetchesAllRecordsFromDb() {
 
         List<Quote> testQuotes = quoteService.findAllQuotes();
-        assertEquals(3, testQuotes.size());
 
+        assertEquals(3, testQuotes.size());
         assertEquals("TEST_ONE", testQuotes.get(0).getTicker());
         assertEquals("TEST_TWO", testQuotes.get(1).getTicker());
         assertEquals("TEST_THREE", testQuotes.get(2).getTicker());
     }
 
     @Test
-    void QuoteService_findQuoteById_returnSpecificQuote() {
+    void findQuoteByIdTest_returnSpecificQuote() {
 
         Quote testQuote = quoteService.findQuoteById("TEST_ONE");
         assertEquals("TEST_ONE", testQuote.getTicker());
 
-        testQuote = quoteService.findQuoteById("NVDA");
-        assertNull(testQuote);
+        assertThrows(
+                ResourceNotFoundException.class,
+                () -> quoteService.findQuoteById("NVDA")
+        );
     }
 }

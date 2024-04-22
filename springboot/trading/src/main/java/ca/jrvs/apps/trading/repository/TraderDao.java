@@ -1,7 +1,6 @@
 package ca.jrvs.apps.trading.repository;
 
-import ca.jrvs.apps.trading.domain.Trader;
-import jdk.jfr.Registered;
+import ca.jrvs.apps.trading.entity.Trader;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

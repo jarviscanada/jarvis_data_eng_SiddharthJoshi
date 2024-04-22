@@ -1,7 +1,10 @@
 package ca.jrvs.apps.trading.service;
 
+import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
+import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
+import ca.jrvs.apps.trading.exceptions.UnknownDataException;
 import ca.jrvs.apps.trading.repository.QuoteDao;
-import ca.jrvs.apps.trading.domain.Quote;
+import ca.jrvs.apps.trading.entity.Quote;
 import ca.jrvs.apps.trading.dto.IexQuote;
 import ca.jrvs.apps.trading.dao.MarketDataDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuoteService {
@@ -47,7 +51,12 @@ public class QuoteService {
         }
 
         // Otherwise, there is a request for just one company quote. So, can call findById in the repository layer
-        return marketDataDao.findById(ticker).stream().toList();
+        Optional<IexQuote> optionalIexQuote = marketDataDao.findById(ticker);
+        if (optionalIexQuote.isEmpty()) {
+            throw new ResourceNotFoundException("Data associated with " + ticker + " not found. Please make sure the ticker is valid.");
+        }
+
+        return optionalIexQuote.stream().toList();
     }
 
     /**
@@ -56,12 +65,20 @@ public class QuoteService {
      */
     public void updateMarketData() {
 
+        List<IexQuote> iexQuoteList = new ArrayList<>();
+
+        // Check whether the existing data inside 'Quote' table is valid or not
         this.quoteDao.findAll().forEach((quote) -> {
-            IexQuote updatedIexQuote = this.marketDataDao.findById(quote.getTicker()).orElseThrow(() ->
-                    new IllegalArgumentException("[FATAL]: Invalid Ticker inside the Database: " + quote.getTicker()));
-            Quote updatedQuote = buildQuoteFromIexQuote(updatedIexQuote);
-            this.quoteDao.save(updatedQuote);
+            iexQuoteList.add(this.marketDataDao.findById(quote.getTicker())
+                    .orElseThrow(() ->
+                            new UnknownDataException("Sorry, we are experiencing some issues within our services. Please give us a moment while we work to fix it.")));
         });
+
+        // If all quotes are valid inside database, proceed to update them and save
+        List<Quote> updatedQuotes = new ArrayList<>();
+
+        iexQuoteList.forEach((iexQuote) -> updatedQuotes.add(buildQuoteFromIexQuote(iexQuote)));
+        updatedQuotes.forEach((updatedQuote) -> quoteDao.save(updatedQuote));
     }
 
     /**
@@ -93,8 +110,11 @@ public class QuoteService {
      */
     public IexQuote findIexQuoteById(String ticker) {
 
-        // If Optional is empty, throw an exception
-        return this.marketDataDao.findById(ticker).orElseThrow(() -> new IllegalArgumentException("Invalid ticker"));
+        // If the Optional is empty, throw an exception
+        return this.marketDataDao.findById(ticker)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Data associated with " + ticker + " not found. Please make sure the ticker is valid."
+                ));
     }
 
     /**
@@ -106,10 +126,11 @@ public class QuoteService {
     public Quote updateQuote(Quote quote) {
 
         // Checking whether the quote to update exists in the database or not
-        if (quoteDao.findById(quote.getTicker()).isEmpty()) {
-            return null;
+        if (!quoteDao.existsById(quote.getTicker())) {
+            throw new ResourceNotFoundException("Quote which is being updated doesn't exist inside the database.");
         }
-        return this.quoteDao.save(quote);
+
+        return quoteDao.save(quote);
     }
 
     /**
@@ -120,22 +141,20 @@ public class QuoteService {
      */
     public Quote addQuote(String tickerId, Quote newQuote) {
 
-        // Throw invalid request exception
         if (!tickerId.equals(newQuote.getTicker())) {
-
-            // Yet to do
-            return null;
+            throw new InvalidRequestException(
+                    "Invalid Request. Please make sure Company symbol / ticker matches with the Request Body"
+            );
         }
 
         // Checking whether the company data exists in Iex Market or not
         if (marketDataDao.findById(tickerId).isEmpty()) {
-            System.out.println("Quote not Found in the IEX System. So, most probably the company symbol is not valid...");
-            return null;
+            throw new InvalidRequestException(
+                    "Invalid Request Body. Quote which is being added is not a valid Quote. Please double check the Quote details."
+            );
         }
 
         return quoteDao.save(newQuote);
-
-
     }
 
     /**
@@ -154,6 +173,9 @@ public class QuoteService {
      * @return instance of the quote
      */
     public Quote findQuoteById(String tickerId) {
-        return quoteDao.findById(tickerId).orElse(null);
+        return quoteDao.findById(tickerId)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Quote not found inside the database. Please make sure the company ticker / symbol is valid."
+                ));
     }
 }

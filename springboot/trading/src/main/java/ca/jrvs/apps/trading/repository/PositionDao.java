@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.repository;
 
-import ca.jrvs.apps.trading.domain.Position;
+import ca.jrvs.apps.trading.entity.Position;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
