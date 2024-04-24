@@ -13,7 +13,7 @@ public interface AccountDao extends JpaRepository<Account, Integer> {
             value = "SELECT * FROM account WHERE trader_id=?1",
             nativeQuery = true
     )
-    Optional<Account> findById(Integer id);
+    Optional<Account> findByTraderId(Integer id);
 
     @Query(
             value = "DELETE FROM account WHERE trader_id=?1",

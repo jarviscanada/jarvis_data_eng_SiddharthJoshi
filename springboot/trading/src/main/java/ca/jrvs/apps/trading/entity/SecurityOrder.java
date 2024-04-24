@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.entity;
 
+import ca.jrvs.apps.trading.dto.OrderStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
