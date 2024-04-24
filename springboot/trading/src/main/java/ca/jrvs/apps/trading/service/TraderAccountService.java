@@ -71,7 +71,7 @@ public class TraderAccountService {
             );
         }
 
-        Optional<Account> optionalAccount = accountDao.findById(traderId);
+        Optional<Account> optionalAccount = accountDao.findByTraderId(traderId);
         if (optionalAccount.isEmpty()) {
             throw new UnknownDataException("Sorry, we are experiencing some issues within our services. Please give us a moment while we work to fix it.");
         }
@@ -108,7 +108,7 @@ public class TraderAccountService {
 
         validateBeforeTransaction(traderId, funds);
 
-        Optional<Account> accountOptional = accountDao.findById(traderId);
+        Optional<Account> accountOptional = accountDao.findByTraderId(traderId);
 
         if (accountOptional.isEmpty()) {
             throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
@@ -134,7 +134,7 @@ public class TraderAccountService {
 
         validateBeforeTransaction(traderId, funds);
 
-        Optional<Account> accountOptional = accountDao.findById(traderId);
+        Optional<Account> accountOptional = accountDao.findByTraderId(traderId);
         if (accountOptional.isEmpty()) {
             throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }

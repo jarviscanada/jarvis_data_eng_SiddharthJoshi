@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.controller;
 
-import ca.jrvs.apps.trading.config.traderaccount.SwaggerDocAddTrader;
-import ca.jrvs.apps.trading.config.traderaccount.SwaggerDocDeleteTrader;
-import ca.jrvs.apps.trading.config.traderaccount.SwaggerDocDepositFunds;
-import ca.jrvs.apps.trading.config.traderaccount.SwaggerDocWithdrawFunds;
+import ca.jrvs.apps.trading.config.annotations.traderaccount.SwaggerDocAddTrader;
+import ca.jrvs.apps.trading.config.annotations.traderaccount.SwaggerDocDeleteTrader;
+import ca.jrvs.apps.trading.config.annotations.traderaccount.SwaggerDocDepositFunds;
+import ca.jrvs.apps.trading.config.annotations.traderaccount.SwaggerDocWithdrawFunds;
 import ca.jrvs.apps.trading.entity.Account;
 import ca.jrvs.apps.trading.entity.Trader;
 import ca.jrvs.apps.trading.dto.TraderAccountView;
