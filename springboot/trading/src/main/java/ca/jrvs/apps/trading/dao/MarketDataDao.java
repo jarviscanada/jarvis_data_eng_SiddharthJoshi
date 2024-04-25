@@ -1,9 +1,7 @@
 package ca.jrvs.apps.trading.dao;
 
-import ca.jrvs.apps.trading.config.MarketDataConfig;
 import ca.jrvs.apps.trading.dto.IexQuote;
 import com.google.common.collect.Iterables;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,8 +15,6 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
     private final static String IEX_API_ENDPOINT = "https://api.iex.cloud/v1/data/core/quote/";
     private final WebClient.Builder client = WebClient.builder();
-    @Autowired
-    private MarketDataConfig marketDataConfiguration;
 
     @Override
     public <S extends IexQuote> S save(S entity) {
