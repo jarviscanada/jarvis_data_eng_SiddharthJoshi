@@ -45,7 +45,7 @@ public class QuoteService {
 
     public List<IexQuote> findIexQuotes(String ticker) {
 
-        // If "," exists, there is potentially a request for multiple company quotes. So in that case, call findAllById method in the repository layer
+        // If "," exists, there is potentially a request for multiple company quotes. So in that case, call .findAllById() method in the repository layer
         if (ticker.contains(",")) {
             return (List<IexQuote>) marketDataDao.findAllById(Collections.singletonList(ticker));
         }
@@ -68,10 +68,11 @@ public class QuoteService {
         List<IexQuote> iexQuoteList = new ArrayList<>();
 
         // Check whether the existing data inside 'Quote' table is valid or not
+        // Exception if the quote table contains the quote which is not in the IEX ecosystem
         this.quoteDao.findAll().forEach((quote) -> {
             iexQuoteList.add(this.marketDataDao.findById(quote.getTicker())
                     .orElseThrow(() ->
-                            new UnknownDataException("Sorry, we are experiencing some issues within our services. Please give us a moment while we work to fix it.")));
+                            new UnknownDataException("Some issue with the server side.")));
         });
 
         // If all quotes are valid inside database, proceed to update them and save

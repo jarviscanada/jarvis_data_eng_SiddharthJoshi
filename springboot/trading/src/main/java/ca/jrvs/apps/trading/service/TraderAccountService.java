@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.service;
 
+import ca.jrvs.apps.trading.dto.TraderAccountView;
 import ca.jrvs.apps.trading.entity.Account;
 import ca.jrvs.apps.trading.entity.SecurityOrder;
 import ca.jrvs.apps.trading.entity.Trader;
-import ca.jrvs.apps.trading.dto.TraderAccountView;
 import ca.jrvs.apps.trading.exceptions.CannotPerformOperationException;
 import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
 import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
@@ -33,6 +33,7 @@ public class TraderAccountService {
     /**
      * creates a new trader and initializes a new account associated with the newly created trader
      * with 0 amount
+     *
      * @param trader trader to be added (non-null except for id)
      * @return traderAccountView
      * @throws IllegalArgumentException if a trader has null fields or id is not null
@@ -56,6 +57,7 @@ public class TraderAccountService {
     /**
      * deletes a trader associated with a specific id.
      * A trader can only be deleted if and only if it has no open position and 0 cash balance
+     *
      * @param traderId id of the trader (not null)
      * @throws IllegalArgumentException if traderId is null, or not found or unable to delete
      */
@@ -83,7 +85,7 @@ public class TraderAccountService {
             );
         }
 
-        // After all these checks, account is now eligible for deletion
+        // After all these checks, the trader is now eligible for deletion
 
         // First, delete all the orders associated with the account. Position view will get updated as security_order table gets modified
         List<SecurityOrder> orders = securityOrderDao.findAllByAccountId(account.getId());
@@ -98,11 +100,12 @@ public class TraderAccountService {
 
     /**
      * deposit funds to an account associated with a specific traderId
+     *
      * @param traderId id of a trader - not null
-     * @param funds amount to be deposited - greater than 0
+     * @param funds    amount to be deposited - greater than 0
      * @return updated account details
      * @throws IllegalArgumentException if traderId is null or not found, and fund is less than
-     * or equal to 0
+     *                                  or equal to 0
      */
     public Account depositFunds(Integer traderId, Double funds) {
 
@@ -113,7 +116,6 @@ public class TraderAccountService {
         if (accountOptional.isEmpty()) {
             throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }
-
         Account account = accountOptional.get();
 
         // Update the funds in DTO / entity
@@ -124,11 +126,12 @@ public class TraderAccountService {
 
     /**
      * withdraw funds from an account associated with a specific traderId
+     *
      * @param traderId id of a trader - not null
-     * @param funds amount to be withdrawn - greater than 0
+     * @param funds    amount to be withdrawn - greater than 0
      * @return updated account details
      * @throws IllegalArgumentException if traderId is null or not found, and fund is less than
-     * or equal to 0
+     *                                  or equal to 0
      */
     public Account withdrawFunds(Integer traderId, Double funds) {
 
@@ -151,22 +154,22 @@ public class TraderAccountService {
 
     /**
      * helper method which validates id and funds
-     * @param id trader id or account id - must not be null
+     *
+     * @param id    trader id or account id - must not be null
      * @param funds funds to deposit or withdraw - must not be 0
      */
     private void validateBeforeTransaction(Integer id, Double funds) {
 
         if (id == null) {
             throw new InvalidRequestException("Invalid Request. Trader ID cannot be null.");
-        }
-
-        else if (funds < 1) {
+        } else if (funds < 1) {
             throw new InvalidRequestException("Invalid Request. Funds must be greater than 0.");
         }
     }
 
     /**
      * helper method which creates an account with 0 funds associated with a newly created trader
+     *
      * @param trader newly created trader
      * @return instance of the newly created account
      */
@@ -176,6 +179,7 @@ public class TraderAccountService {
 
     /**
      * helper method to validate whether fields associated with the trader entity are null or not
+     *
      * @param trader trader entity
      * @return true if any null value is present otherwise false
      */
