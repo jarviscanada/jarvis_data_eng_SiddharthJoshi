@@ -35,6 +35,11 @@
       ],
       "git_url": "/core_java",
       "name": "Core Java Apps"
+    },
+    {
+      "description": "This application is an online stock trading REST API developed to improve Jarvis' legacy and monolithic application. It allows the users to buy and sell stocks, manage their accounts and stock portfolios. Built in core Java and Spring boot utilizing maven for project management and PostgreSQL for database, this application mimics microservices architecture making it easier to scale. Docker is used to deploy the application in container making it lightweight and portable across all platforms.",
+      "git_url": "/springboot",
+      "name": "Stock Trading Application"
     }
   ],
   "name": "Siddharth Joshi",
@@ -70,7 +75,6 @@
       "Docker",
       "Flask",
       "JavaScript",
-      "Spring Boot",
       "Godot Game Engine"
     ],
     "familiar": [
@@ -84,6 +88,7 @@
       "Java",
       "Python",
       "RDBMS/SQL",
+      "Spring Boot",
       "Linux/Bash",
       "Agile/Scrum",
       "Git"
