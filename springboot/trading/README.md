@@ -61,6 +61,10 @@ NOTE: If you are using linux, you'll have to download and install Docker Engine 
    ![img.png](assets/swagger.png)
    
 # Implementation
+## ER Diagram 
+![img](assets/er_diagram.png)
+- Above is the Entity Relationship Diagram of how different entities are related to each other.
+- Position View is excluded since it is a view.
 ## Architecture 
 ![img](assets/architecture.png)
 ### Design
