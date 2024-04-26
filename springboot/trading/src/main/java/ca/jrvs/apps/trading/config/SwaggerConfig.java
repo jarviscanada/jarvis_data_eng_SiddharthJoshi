@@ -14,13 +14,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                 description = "Spring Boot Backend for Stockquote Application",
                 title = "Stockquote Application",
                 version = "1.0.0"
-        ),
-        servers = {
-                @Server(
-                        description = "Local Environment",
-                        url = "https://localhost:8080/"
-                )
-        }
+        )
 )
 public class SwaggerConfig {
 

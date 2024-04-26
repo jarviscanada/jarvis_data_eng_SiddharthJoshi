@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.service;
 
+import ca.jrvs.apps.trading.exceptions.CannotPerformOperationException;
 import ca.jrvs.apps.trading.exceptions.InvalidRequestException;
 import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
 import ca.jrvs.apps.trading.exceptions.UnknownDataException;
@@ -7,6 +8,8 @@ import ca.jrvs.apps.trading.repository.QuoteDao;
 import ca.jrvs.apps.trading.entity.Quote;
 import ca.jrvs.apps.trading.dto.IexQuote;
 import ca.jrvs.apps.trading.dao.MarketDataDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,7 @@ public class QuoteService {
     private MarketDataDao marketDataDao;
     @Autowired
     private QuoteDao quoteDao;
+    Logger errorLogger = LoggerFactory.getLogger(QuoteService.class);
 
     /**
      * Helper method to map an IexQuote to Quote entity
@@ -29,7 +33,7 @@ public class QuoteService {
      * @param iexQuote IexQuote from the IEX endpoint
      * @return Quote instance
      */
-    protected static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
+    protected Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
 
         // Creating a new quote and updating it with the latest values
         Quote updatedQuote = new Quote();
@@ -53,6 +57,7 @@ public class QuoteService {
         // Otherwise, there is a request for just one company quote. So, can call findById in the repository layer
         Optional<IexQuote> optionalIexQuote = marketDataDao.findById(ticker);
         if (optionalIexQuote.isEmpty()) {
+            errorLogger.error("Ticker is not found in the IEX ecosystem. Mostly because provided ticker (" + ticker + ") is invalid...");
             throw new ResourceNotFoundException("Data associated with " + ticker + " not found. Please make sure the ticker is valid.");
         }
 
@@ -128,7 +133,8 @@ public class QuoteService {
 
         // Checking whether the quote to update exists in the database or not
         if (!quoteDao.existsById(quote.getTicker())) {
-            throw new ResourceNotFoundException("Quote which is being updated doesn't exist inside the database.");
+            errorLogger.error("Quote to update doesn't exist inside the database. Client side issue for invalid quote");
+            throw new CannotPerformOperationException("Quote which is being updated doesn't exist inside the database.");
         }
 
         return quoteDao.save(quote);
@@ -143,6 +149,7 @@ public class QuoteService {
     public Quote addQuote(String tickerId, Quote newQuote) {
 
         if (!tickerId.equals(newQuote.getTicker())) {
+            errorLogger.error("Client side issue. Request is not valid");
             throw new InvalidRequestException(
                     "Invalid Request. Please make sure Company symbol / ticker matches with the Request Body"
             );
@@ -150,6 +157,7 @@ public class QuoteService {
 
         // Checking whether the company data exists in Iex Market or not
         if (marketDataDao.findById(tickerId).isEmpty()) {
+            errorLogger.error("Quote is not valid. Doesn't exist inside the IEX ecosystem. Mostly client side issue.");
             throw new InvalidRequestException(
                     "Invalid Request Body. Quote which is being added is not a valid Quote. Please double check the Quote details."
             );

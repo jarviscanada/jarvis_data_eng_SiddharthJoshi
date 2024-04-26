@@ -12,6 +12,8 @@ import ca.jrvs.apps.trading.repository.AccountDao;
 import ca.jrvs.apps.trading.repository.PositionDao;
 import ca.jrvs.apps.trading.repository.SecurityOrderDao;
 import ca.jrvs.apps.trading.repository.TraderDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,14 +23,13 @@ import java.util.Optional;
 @Service
 public class TraderAccountService {
 
+    Logger errorLogger = LoggerFactory.getLogger(QuoteService.class);
     @Autowired
     private TraderDao traderDao;
     @Autowired
     private SecurityOrderDao securityOrderDao;
     @Autowired
     private AccountDao accountDao;
-    @Autowired
-    private PositionDao positionDao;
 
     /**
      * creates a new trader and initializes a new account associated with the newly created trader
@@ -41,6 +42,7 @@ public class TraderAccountService {
     public TraderAccountView createTraderAndAccount(Trader trader) {
 
         if (areTraderFieldsNull(trader)) {
+            errorLogger.error("Client side Issue. Invalid Request because some or one field/s are null in the Request body.");
             throw new InvalidRequestException("Bad Request. Data fields associated with the Trader must not be null.");
         }
 
@@ -64,10 +66,12 @@ public class TraderAccountService {
     public void deleteTraderById(Integer traderId) {
 
         if (traderId == null) {
+            errorLogger.error("Client side Issue. Invalid Request because the Trader ID is null.");
             throw new InvalidRequestException("Invalid Request. Trader ID cannot be null.");
         }
 
         if (!traderDao.existsById(traderId)) {
+            errorLogger.error("Trader with the ID " + traderId + " doesn't exist inside the database.");
             throw new ResourceNotFoundException(
                     "Cannot delete the trader. Trader associated with the id " + traderId + " doesn't exist inside the database."
             );
@@ -75,11 +79,13 @@ public class TraderAccountService {
 
         Optional<Account> optionalAccount = accountDao.findByTraderId(traderId);
         if (optionalAccount.isEmpty()) {
+            errorLogger.error("[FATAL] - Trader exists, but the account doesn't exist (Because by default, every trader has an account generated for them)");
             throw new UnknownDataException("Sorry, we are experiencing some issues within our services. Please give us a moment while we work to fix it.");
         }
 
         Account account = optionalAccount.get();
         if (account.getAmount() != 0) {
+            errorLogger.error("Account associated with Trader ID " + traderId + " is still there. User needs to delete it first in order to delete the Trader itself.");
             throw new CannotPerformOperationException(
                     "Error. Cannot delete the trader as the account associated with that trader still has funds."
             );
@@ -114,6 +120,7 @@ public class TraderAccountService {
         Optional<Account> accountOptional = accountDao.findByTraderId(traderId);
 
         if (accountOptional.isEmpty()) {
+            errorLogger.error("Account associated with the Trader " + traderId + " doesn't exist. Cannot deposit.");
             throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }
         Account account = accountOptional.get();
@@ -139,12 +146,14 @@ public class TraderAccountService {
 
         Optional<Account> accountOptional = accountDao.findByTraderId(traderId);
         if (accountOptional.isEmpty()) {
+            errorLogger.error("Account associated with the Trader " + traderId + " doesn't exist. Cannot deposit.");
             throw new CannotPerformOperationException("Operation failed. Account and Trader associated with " + traderId + " doesn't exist in the database.");
         }
 
         Account account = accountOptional.get();
         double remainingBalance = account.getAmount() - funds;
         if (remainingBalance < 0) {
+            errorLogger.error("Cannot withdraw funds due to lack of funds. Client side issue");
             throw new CannotPerformOperationException("Operation failed. Insufficient funds in the account with ID ");
         }
 
@@ -161,8 +170,10 @@ public class TraderAccountService {
     private void validateBeforeTransaction(Integer id, Double funds) {
 
         if (id == null) {
+            errorLogger.error("Client side issue (Trader ID is null)");
             throw new InvalidRequestException("Invalid Request. Trader ID cannot be null.");
         } else if (funds < 1) {
+            errorLogger.error("Client side issue (Invalid Funds: " + funds + ")");
             throw new InvalidRequestException("Invalid Request. Funds must be greater than 0.");
         }
     }
