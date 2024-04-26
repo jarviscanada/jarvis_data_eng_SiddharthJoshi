@@ -16,12 +16,15 @@ import ca.jrvs.apps.trading.repository.AccountDao;
 import ca.jrvs.apps.trading.repository.PositionDao;
 import ca.jrvs.apps.trading.repository.QuoteDao;
 import ca.jrvs.apps.trading.repository.SecurityOrderDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderService {
 
+    Logger errorLogger = LoggerFactory.getLogger(QuoteService.class);
     @Autowired
     private AccountDao accountDao;
     @Autowired
@@ -33,6 +36,7 @@ public class OrderService {
 
     /**
      * this function executes the market order saving it inside the database in the logical order
+     *
      * @param marketOrderBuyDto client side request DTO
      * @return instance of the security order
      */
@@ -51,6 +55,7 @@ public class OrderService {
             order.setStatus(String.valueOf(OrderStatus.CANCELED));
             order.setNotes("Canceled due to lack of funds.");
             securityOrderDao.save(order);
+            errorLogger.error("Client side issue. They cannot afford the stocks");
             throw new CannotPerformOperationException("Not enough funds to process your Order. Cancelling the Order.");
         }
 
@@ -59,6 +64,7 @@ public class OrderService {
 
     /**
      * sell all the stocks associated with the ticker if exists
+     *
      * @param sellOrder client side sell order details
      */
     public SellResponseDto executeSellMarketOrder(MarketOrderSellDto sellOrder) {
@@ -68,6 +74,7 @@ public class OrderService {
                 .orElseThrow(() -> new CannotPerformOperationException("Quote which is to be liquidated doesn't exist in this trader's portfolio. Cannot perform sell transaction."));
 
         if (position.getPosition() == 0) {
+            errorLogger.error("Client side issue. They have no stocks of " + sellOrder.getTicker() + ".");
             throw new CannotPerformOperationException("You currently own 0 stocks of " + sellOrder.getTicker() + ". Cannot perform sell transaction.");
         }
 
@@ -85,25 +92,28 @@ public class OrderService {
 
     /**
      * helper method to validate the client request
+     *
      * @param marketOrderBuyDto buy order from the client side
      */
     protected void validateMarketOrderDto(MarketOrderBuyDto marketOrderBuyDto) {
 
         if (!quoteDao.existsById(marketOrderBuyDto.getTicker())) {
+            errorLogger.error("Invalid Company Ticker from the request body.");
             throw new InvalidRequestException("Company ticker seems to be invalid.");
-        }
-        else if (marketOrderBuyDto.getSize() < 1) {
+        } else if (marketOrderBuyDto.getSize() < 1) {
+            errorLogger.error("Invalid amount of stocks from the request body.");
             throw new InvalidRequestException("Amount of Stocks passed is invalid. Cannot be 0 or negative.");
-        }
-        else if (!accountDao.existsById(marketOrderBuyDto.getAccountId())) {
+        } else if (!accountDao.existsById(marketOrderBuyDto.getAccountId())) {
+            errorLogger.error("Account with ID " + marketOrderBuyDto.getAccountId() + " doesn't exist. Client Side Issue");
             throw new ResourceNotFoundException("Account associated with ID " + marketOrderBuyDto.getAccountId() + " doesn't exist.");
         }
     }
 
     /**
      * helper method to create a new sell security order
+     *
      * @param sellOrder order to sell from the client side
-     * @param position existing position
+     * @param position  existing position
      * @return instance of the security order
      */
     protected SecurityOrder createSellSecurityOrder(MarketOrderSellDto sellOrder, Position position) {
@@ -131,6 +141,7 @@ public class OrderService {
 
     /**
      * helper method to create a new buy Security Order
+     *
      * @param marketOrder order from the client side
      * @return instance of the SecurityOrder
      */
@@ -155,6 +166,7 @@ public class OrderService {
     /**
      * helper method to check whether the account associated with the trader has enough money to
      * fulfil the order or not.
+     *
      * @return true if trader can afford otherwise false
      */
     protected boolean canAffordTheStocks(int size, SecurityOrder order, Account account) {
@@ -164,7 +176,8 @@ public class OrderService {
     /**
      * Helper method to process the buy transaction
      * Updates the account with the updated amount and saves the order and updated account in the db
-     * @param orderData order from the client side
+     *
+     * @param orderData     order from the client side
      * @param securityOrder newly created security order
      */
     protected SecurityOrder processBuyTransaction(MarketOrderBuyDto orderData, SecurityOrder securityOrder, Account account) {

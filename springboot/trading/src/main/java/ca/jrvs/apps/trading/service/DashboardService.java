@@ -8,6 +8,8 @@ import ca.jrvs.apps.trading.entity.Position;
 import ca.jrvs.apps.trading.entity.Trader;
 import ca.jrvs.apps.trading.exceptions.ResourceNotFoundException;
 import ca.jrvs.apps.trading.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
