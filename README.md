@@ -4,9 +4,9 @@ Hello! I'm Siddharth Joshi, a Software Engineer with a Bachelor of Technology in
 
 ## Skills
 
-**Proficient:** Java, Python, RDBMS/SQL, Linux/Bash, Agile/Scrum, Git
+**Proficient:** Java, Python, RDBMS/SQL, Spring Boot, Linux/Bash, Agile/Scrum, Git
 
-**Competent:** Django, Docker, Flask, JavaScript, Spring Boot, Godot Game Engine
+**Competent:** Django, Docker, Flask, JavaScript, Godot Game Engine
 
 **Familiar:** C#, C/C++, .NET Framework, Amazon Web Services, NoSQL
 
@@ -21,6 +21,8 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_SiddharthJ
       
   - Grep App: This project is a robust simulation of the Grep Command Line Tool in Linux. It is implemented in Core Java utilizing Maven for seamless build management along with Docker for deployment. Users can input a regex pattern, select a starting directory for the search, and designate an output file. This empowers the tool to generate a comprehensive list of matched lines, ready for further analysis.
   - Stock Quote App: This Application is a Personal Stock Wallet that allows users to effortlessly buy, sell, and track all their stocks in one place. This acts as a central repository for all the company stocks utilizing PostgreSQL via JDBC. This app is portable across all platforms.
+
+**Stock Trading Application** [[GitHub](https://github.com/jarviscanada/jarvis_data_eng_SiddharthJoshi/tree/master/springboot)]: This application is an online stock trading REST API developed to improve Jarvis' legacy and monolithic application. It allows the users to buy and sell stocks, manage their accounts and stock portfolios. Built in core Java and Spring boot utilizing maven for project management and PostgreSQL for database, this application mimics microservices architecture making it easier to scale. Docker is used to deploy the application in container making it lightweight and portable across all platforms.
 
 
 ## Highlighted Projects
